@@ -7,19 +7,23 @@ import io.github.finkmoritz.dndencountersimulator.combatant.impl.Goblin
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Wolf
 import io.github.finkmoritz.dndencountersimulator.dice.Dice
 import io.github.finkmoritz.dndencountersimulator.encounter.BasicEncounter
-import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategies
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 
+/**
+ * Simulation of the first part of the Lost Mines of Phandelver adventure.
+ */
 fun main() {
     val numberOfSimulations = 1000
     var survivalCount = 0
+    var survivingPartyMembers = 0;
 
     for (i in 1..numberOfSimulations) {
         val party = mutableListOf<Combatant>(
-            BaseCombatant("Kämpfer 1 (1)", 12u, 17u, -1, 5, Dice("1d12+3"), TargetingStrategies.WEAKEST),
-            BaseCombatant("Kleriker 1", 11u, 18u, -1, 4, Dice("1d8+2"), TargetingStrategies.WEAKEST),
-            BaseCombatant("Schurke 1", 9u, 14u, 3, 5, Dice("1d6+3"), TargetingStrategies.WEAKEST),
-            BaseCombatant("Magier 1", 8u, 12u, 2, 5, Dice("3d4+3"), TargetingStrategies.WEAKEST),
-            BaseCombatant("Kämpfer 1 (2)", 12u, 14u, 3, 4, Dice("2d6+2"), TargetingStrategies.WEAKEST),
+            BaseCombatant("Fighter 1 (1)", 12u, 17u, -1, 5, Dice("1d12+3"), TargetingStrategy.WEAKEST),
+            BaseCombatant("Cleric 1", 11u, 18u, -1, 4, Dice("1d8+2"), TargetingStrategy.WEAKEST),
+            BaseCombatant("Rogue 1", 9u, 14u, 3, 5, Dice("1d6+3"), TargetingStrategy.WEAKEST),
+            BaseCombatant("Sorcerer 1", 8u, 12u, 2, 5, Dice("3d4+3"), TargetingStrategy.WEAKEST),
+            BaseCombatant("Fighter 1 (2)", 12u, 14u, 3, 4, Dice("2d6+2"), TargetingStrategy.WEAKEST),
         )
 
         val goblinsAmbush = mutableListOf<Combatant>(
@@ -52,7 +56,7 @@ fun main() {
 
         val boss = mutableListOf<Combatant>(
             Bugbear(),
-            Wolf(targetingStrategy = TargetingStrategies.WEAKEST),
+            Wolf(targetingStrategy = TargetingStrategy.WEAKEST),
             // Goblin(),
             // Goblin(),
         )
@@ -65,8 +69,10 @@ fun main() {
 
         if (party.any { it.hp() > 0u }) {
             survivalCount++
+            survivingPartyMembers += party.count { it.hp() > 0u }
         }
     }
 
     println("Survival rate: ${survivalCount.toDouble() / numberOfSimulations * 100}%")
+    println("Average number of surviving party members: ${survivingPartyMembers.toDouble() / survivalCount}")
 }

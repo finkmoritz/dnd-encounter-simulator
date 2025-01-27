@@ -2,7 +2,6 @@ package io.github.finkmoritz.dndencountersimulator.combatant.impl
 
 import io.github.finkmoritz.dndencountersimulator.combatant.BaseCombatant
 import io.github.finkmoritz.dndencountersimulator.dice.Dice
-import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategies
 import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 
 class Goblin(
@@ -12,7 +11,7 @@ class Goblin(
     initiativeBonus: Int = 2,
     attackBonus: Int = 4,
     damageDice: Dice = Dice("1d6+2"),
-    targetingStrategy: TargetingStrategy = TargetingStrategies.RANDOM,
+    targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
 ) : BaseCombatant(
     name,
     hp,
