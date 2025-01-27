@@ -5,7 +5,9 @@ import io.github.finkmoritz.dndencountersimulator.combatant.Combatant
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Bugbear
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Goblin
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Wolf
+import io.github.finkmoritz.dndencountersimulator.dice.Dice
 import io.github.finkmoritz.dndencountersimulator.encounter.BasicEncounter
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategies
 
 fun main() {
     val numberOfSimulations = 1000
@@ -13,11 +15,11 @@ fun main() {
 
     for (i in 1..numberOfSimulations) {
         val party = mutableListOf<Combatant>(
-            BaseCombatant("Kämpfer 1 (1)", 12u, 17u, -1, 5, { (1..12).random().toUInt() + 3u }),
-            BaseCombatant("Kleriker 1", 11u, 18u, -1, 4, { (1..8).random().toUInt() + 2u }),
-            BaseCombatant("Schurke 1", 9u, 14u, 3, 5, { (1..6).random().toUInt() + 3u }),
-            BaseCombatant("Magier 1", 8u, 12u, 2, 5, { ((1..4).random() + (1..4).random() + (1..4).random() + 3).toUInt() }),
-            BaseCombatant("Kämpfer 1 (2)", 12u, 14u, 3, 4, { ((1..6).random() + (1..6).random() + 2).toUInt() }),
+            BaseCombatant("Kämpfer 1 (1)", 12u, 17u, -1, 5, Dice("1d12+3"), TargetingStrategies.WEAKEST),
+            BaseCombatant("Kleriker 1", 11u, 18u, -1, 4, Dice("1d8+2"), TargetingStrategies.WEAKEST),
+            BaseCombatant("Schurke 1", 9u, 14u, 3, 5, Dice("1d6+3"), TargetingStrategies.WEAKEST),
+            BaseCombatant("Magier 1", 8u, 12u, 2, 5, Dice("3d4+3"), TargetingStrategies.WEAKEST),
+            BaseCombatant("Kämpfer 1 (2)", 12u, 14u, 3, 4, Dice("2d6+2"), TargetingStrategies.WEAKEST),
         )
 
         val goblinsAmbush = mutableListOf<Combatant>(
@@ -50,7 +52,7 @@ fun main() {
 
         val boss = mutableListOf<Combatant>(
             Bugbear(),
-            Wolf(),
+            Wolf(targetingStrategy = TargetingStrategies.WEAKEST),
             // Goblin(),
             // Goblin(),
         )

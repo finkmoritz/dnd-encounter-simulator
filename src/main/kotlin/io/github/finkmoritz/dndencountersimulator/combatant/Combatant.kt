@@ -1,5 +1,7 @@
 package io.github.finkmoritz.dndencountersimulator.combatant
 
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
+
 interface Combatant {
 
     fun name(): String
@@ -15,4 +17,6 @@ interface Combatant {
     fun rollDamage(): UInt
 
     fun takeDamage(amount: UInt)
+
+    fun targetingStrategy(): TargetingStrategy
 }

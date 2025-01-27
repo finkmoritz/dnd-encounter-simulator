@@ -1,5 +1,24 @@
 package io.github.finkmoritz.dndencountersimulator.combatant.impl
 
 import io.github.finkmoritz.dndencountersimulator.combatant.BaseCombatant
+import io.github.finkmoritz.dndencountersimulator.dice.Dice
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategies
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 
-class Bugbear : BaseCombatant("Bugbear", 27u, 16u, 2, 4, { ((1..6).random() + (1..6).random() + 2).toUInt() })
+class Bugbear(
+    name:String = "Bugbear",
+    hp:UInt = 27u,
+    ac:UInt = 16u,
+    initiativeBonus:Int = 2,
+    attackBonus:Int = 4,
+    damageDice: Dice = Dice("2d6+2"),
+    targetingStrategy: TargetingStrategy = TargetingStrategies.RANDOM,
+) : BaseCombatant(
+    name,
+    hp,
+    ac,
+    initiativeBonus,
+    attackBonus,
+    damageDice,
+    targetingStrategy,
+)

@@ -1,5 +1,8 @@
 package io.github.finkmoritz.dndencountersimulator.combatant
 
+import io.github.finkmoritz.dndencountersimulator.dice.Dice
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategies
+import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 import kotlin.math.max
 
 open class BaseCombatant(
@@ -8,7 +11,8 @@ open class BaseCombatant(
     private val ac: UInt,
     private val initiativeBonus: Int,
     private val attackBonus: Int,
-    private val damageRoll: () -> UInt,
+    private val damageDice: Dice,
+    private val targetingStrategy: TargetingStrategy = TargetingStrategies.RANDOM,
     ) : Combatant {
 
     override fun name(): String {
@@ -32,10 +36,14 @@ open class BaseCombatant(
     }
 
     override fun rollDamage(): UInt {
-        return damageRoll()
+        return damageDice.roll()
     }
 
     override fun takeDamage(amount: UInt) {
         hp = max(0, hp.toInt() - amount.toInt()).toUInt()
+    }
+
+    override fun targetingStrategy(): TargetingStrategy {
+        return targetingStrategy
     }
 }

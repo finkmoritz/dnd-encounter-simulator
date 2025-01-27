@@ -18,9 +18,9 @@ class BasicEncounter(
             val combatant = combatants[initiativeIndex]
 
             val target = if (friendlyCombatants.contains(combatant)) {
-                opposingCombatants.random()
+                combatant.targetingStrategy().chooseTarget(opposingCombatants)
             } else {
-                friendlyCombatants.random()
+                combatant.targetingStrategy().chooseTarget(friendlyCombatants)
             }
 
             println("${combatant.name()} attacks ${target.name()}")
