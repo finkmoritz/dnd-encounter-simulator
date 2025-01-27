@@ -10,7 +10,7 @@ class Wolf(
     ac: UInt = 13u,
     initiativeBonus: Int = 2,
     attackBonus: Int = 4,
-    damageDice: Dice = Dice("2d4+2"),
+    damageDice: Dice = Dice.fromExpression("2d4+2"),
     targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
 ) : BaseCombatant(
     name,

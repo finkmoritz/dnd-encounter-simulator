@@ -10,7 +10,7 @@ class Bugbear(
     ac:UInt = 16u,
     initiativeBonus:Int = 2,
     attackBonus:Int = 4,
-    damageDice: Dice = Dice("2d6+2"),
+    damageDice: Dice = Dice.fromExpression("2d6+2"),
     targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
 ) : BaseCombatant(
     name,

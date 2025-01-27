@@ -10,7 +10,7 @@ class Goblin(
     ac: UInt = 15u,
     initiativeBonus: Int = 2,
     attackBonus: Int = 4,
-    damageDice: Dice = Dice("1d6+2"),
+    damageDice: Dice = Dice.fromExpression("1d6+2"),
     targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
 ) : BaseCombatant(
     name,

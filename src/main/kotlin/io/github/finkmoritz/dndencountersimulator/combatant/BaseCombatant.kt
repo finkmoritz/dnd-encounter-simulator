@@ -27,11 +27,11 @@ open class BaseCombatant(
     }
 
     override fun rollInitiative(): UInt {
-        return max(1, (1..20).random() + initiativeBonus).toUInt()
+        return Dice(1u, 20u, initiativeBonus).roll()
     }
 
     override fun rollAttack(): UInt {
-        return max(1, (1..20).random() + attackBonus).toUInt()
+        return Dice(1u, 20u, attackBonus).roll()
     }
 
     override fun rollDamage(): UInt {
