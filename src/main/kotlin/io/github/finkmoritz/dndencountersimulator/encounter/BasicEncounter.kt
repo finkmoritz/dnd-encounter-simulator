@@ -9,10 +9,10 @@ class BasicEncounter(
     private val verbose: Boolean,
     ) : Encounter {
 
-    private val friendlyCombatants: MutableList<Combatant> = party.filter { it.hp() > 0u }.toMutableList()
-    private val opposingCombatants: MutableList<Combatant> = opponents.filter { it.hp() > 0u }.toMutableList()
+    private val friendlyCombatants: MutableList<Combatant> = party.filter { it.isAlive() }.toMutableList()
+    private val opposingCombatants: MutableList<Combatant> = opponents.filter { it.isAlive() }.toMutableList()
 
-    private val surprisedCombatants: MutableList<Combatant> = surprised.filter { it.hp() > 0u }.toMutableList()
+    private val surprisedCombatants: MutableList<Combatant> = surprised.filter { it.isAlive() }.toMutableList()
 
     override fun run() {
         val combatants = determineInitiativeOrder()
@@ -20,7 +20,7 @@ class BasicEncounter(
 
         var initiativeIndex = 0
 
-        while (friendlyCombatants.any { it.hp() > 0u } && opposingCombatants.any { it.hp() > 0u }) {
+        while (friendlyCombatants.any { it.isAlive() } && opposingCombatants.any { it.isAlive() }) {
 
             val combatant = combatants[initiativeIndex]
 
@@ -41,7 +41,7 @@ class BasicEncounter(
                 target.takeDamage(damage)
                 printIfVerbose("${combatant.name()} hits ${target.name()} for $damage damage")
 
-                if (target.hp() < 1u) {
+                if (target.isDead()) {
                     combatants.remove(target)
                     friendlyCombatants.remove(target)
                     opposingCombatants.remove(target)

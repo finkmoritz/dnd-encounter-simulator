@@ -19,4 +19,12 @@ interface Combatant {
     fun takeDamage(amount: UInt)
 
     fun targetingStrategy(): TargetingStrategy
+
+    fun isAlive(): Boolean {
+        return hp() > 0u
+    }
+
+    fun isDead(): Boolean {
+        return !isAlive()
+    }
 }

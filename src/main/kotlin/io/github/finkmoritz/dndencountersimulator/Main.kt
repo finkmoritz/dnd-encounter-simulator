@@ -69,9 +69,9 @@ fun main() {
         BasicEncounter(party, goblinsLiving, verbose = verboseOutput).run()
         BasicEncounter(party, boss, verbose = verboseOutput).run()
 
-        if (party.any { it.hp() > 0u }) {
+        if (party.any { it.isAlive() }) {
             survivalCount++
-            survivingPartyMembers += party.count { it.hp() > 0u }
+            survivingPartyMembers += party.count { it.isAlive() }
         }
     }
 
