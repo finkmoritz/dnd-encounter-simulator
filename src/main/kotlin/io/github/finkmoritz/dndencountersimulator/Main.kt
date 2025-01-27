@@ -13,6 +13,8 @@ import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrat
  * Simulation of the first part of the Lost Mines of Phandelver adventure.
  */
 fun main() {
+    val verboseOutput = false
+
     val numberOfSimulations = 1000
     var survivalCount = 0
     var survivingPartyMembers = 0;
@@ -61,11 +63,11 @@ fun main() {
             // Goblin(),
         )
 
-        // BasicEncounter(party, goblinsAmbush).run()
-        BasicEncounter(party, goblinsWatch).run()
-        BasicEncounter(party, goblinsGuard).run()
-        BasicEncounter(party, goblinsLiving).run()
-        BasicEncounter(party, boss).run()
+        BasicEncounter(party, goblinsAmbush, surprised = party, verbose = verboseOutput).run()
+        BasicEncounter(party, goblinsWatch, verbose = verboseOutput).run()
+        BasicEncounter(party, goblinsGuard, verbose = verboseOutput).run()
+        BasicEncounter(party, goblinsLiving, verbose = verboseOutput).run()
+        BasicEncounter(party, boss, verbose = verboseOutput).run()
 
         if (party.any { it.hp() > 0u }) {
             survivalCount++
