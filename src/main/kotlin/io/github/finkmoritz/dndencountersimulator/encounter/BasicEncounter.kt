@@ -25,6 +25,7 @@ class BasicEncounter(
             val combatant = combatants[initiativeIndex]
 
             if (surprisedCombatants.remove(combatant)) {
+                initiativeIndex = (initiativeIndex + 1) % combatants.size
                 continue
             }
 

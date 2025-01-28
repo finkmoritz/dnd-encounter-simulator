@@ -7,6 +7,8 @@ interface Combatant {
 
     fun name(): String
 
+    fun maxHp(): UInt
+
     fun hp(): UInt
 
     fun ac(): UInt
@@ -18,6 +20,8 @@ interface Combatant {
     fun rollDamage(): Damage
 
     fun takeDamage(damage: Damage)
+
+    fun heal(amount: UInt)
 
     fun targetingStrategy(): TargetingStrategy
 
