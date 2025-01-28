@@ -40,6 +40,7 @@ class BasicEncounter(
                 val damage = combatant.rollDamage()
                 target.takeDamage(damage)
                 printIfVerbose("${combatant.name()} hits ${target.name()} for $damage damage")
+                printIfVerbose("${target.name()} has ${target.hp()} HP remaining")
 
                 if (target.isDead()) {
                     combatants.remove(target)

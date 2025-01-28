@@ -5,7 +5,8 @@ import io.github.finkmoritz.dndencountersimulator.combatant.Combatant
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Bugbear
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Goblin
 import io.github.finkmoritz.dndencountersimulator.combatant.impl.Wolf
-import io.github.finkmoritz.dndencountersimulator.dice.Dice
+import io.github.finkmoritz.dndencountersimulator.damage.DamageDice
+import io.github.finkmoritz.dndencountersimulator.damage.DamageType
 import io.github.finkmoritz.dndencountersimulator.encounter.BasicEncounter
 import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 
@@ -21,11 +22,11 @@ fun main() {
 
     for (i in 1..numberOfSimulations) {
         val party = mutableListOf<Combatant>(
-            BaseCombatant("Fighter 1 (1)", 12u, 17u, -1, 5, Dice.fromExpression("1d12+3"), TargetingStrategy.LOWEST_HP),
-            BaseCombatant("Cleric 1", 11u, 18u, -1, 4, Dice.fromExpression("1d8+2"), TargetingStrategy.LOWEST_HP),
-            BaseCombatant("Rogue 1", 9u, 14u, 3, 5, Dice.fromExpression("1d6+3"), TargetingStrategy.LOWEST_HP),
-            BaseCombatant("Sorcerer 1", 8u, 12u, 2, 5, Dice.fromExpression("3d4+3"), TargetingStrategy.LOWEST_HP),
-            BaseCombatant("Fighter 1 (2)", 12u, 14u, 3, 4, Dice.fromExpression("2d6+2"), TargetingStrategy.LOWEST_HP),
+            BaseCombatant("Fighter 1 (1)", 12u, 17u, -1, 5, DamageDice.fromExpressions("1d12+3", DamageType.SLASHING), TargetingStrategy.HIGHEST_AC),
+            BaseCombatant("Cleric 1", 11u, 18u, -1, 4, DamageDice.fromExpressions("1d8+2", DamageType.BLUDGEONING), TargetingStrategy.LOWEST_HP),
+            BaseCombatant("Rogue 1", 9u, 14u, 3, 5, DamageDice.fromExpressions("1d6+3", DamageType.PIERCING), TargetingStrategy.LOWEST_AC),
+            BaseCombatant("Sorcerer 1", 8u, 12u, 2, 99 /* magic missile hits always */, DamageDice.fromExpressions("3d4+3", DamageType.FORCE), TargetingStrategy.HIGHEST_HP),
+            BaseCombatant("Fighter 1 (2)", 12u, 14u, 3, 4, DamageDice.fromExpressions("2d6+2", DamageType.SLASHING), TargetingStrategy.LOWEST_HP),
         )
 
         val goblinsAmbush = mutableListOf<Combatant>(
