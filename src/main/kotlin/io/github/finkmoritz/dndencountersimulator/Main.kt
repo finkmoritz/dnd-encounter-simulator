@@ -21,11 +21,11 @@ fun main() {
 
     for (i in 1..numberOfSimulations) {
         val party = mutableListOf<Combatant>(
-            BaseCombatant("Fighter 1 (1)", 12u, 17u, -1, 5, Dice.fromExpression("1d12+3"), TargetingStrategy.WEAKEST),
-            BaseCombatant("Cleric 1", 11u, 18u, -1, 4, Dice.fromExpression("1d8+2"), TargetingStrategy.WEAKEST),
-            BaseCombatant("Rogue 1", 9u, 14u, 3, 5, Dice.fromExpression("1d6+3"), TargetingStrategy.WEAKEST),
-            BaseCombatant("Sorcerer 1", 8u, 12u, 2, 5, Dice.fromExpression("3d4+3"), TargetingStrategy.WEAKEST),
-            BaseCombatant("Fighter 1 (2)", 12u, 14u, 3, 4, Dice.fromExpression("2d6+2"), TargetingStrategy.WEAKEST),
+            BaseCombatant("Fighter 1 (1)", 12u, 17u, -1, 5, Dice.fromExpression("1d12+3"), TargetingStrategy.LOWEST_HP),
+            BaseCombatant("Cleric 1", 11u, 18u, -1, 4, Dice.fromExpression("1d8+2"), TargetingStrategy.LOWEST_HP),
+            BaseCombatant("Rogue 1", 9u, 14u, 3, 5, Dice.fromExpression("1d6+3"), TargetingStrategy.LOWEST_HP),
+            BaseCombatant("Sorcerer 1", 8u, 12u, 2, 5, Dice.fromExpression("3d4+3"), TargetingStrategy.LOWEST_HP),
+            BaseCombatant("Fighter 1 (2)", 12u, 14u, 3, 4, Dice.fromExpression("2d6+2"), TargetingStrategy.LOWEST_HP),
         )
 
         val goblinsAmbush = mutableListOf<Combatant>(
@@ -58,7 +58,7 @@ fun main() {
 
         val boss = mutableListOf<Combatant>(
             Bugbear(),
-            Wolf(targetingStrategy = TargetingStrategy.WEAKEST),
+            Wolf(targetingStrategy = TargetingStrategy.LOWEST_HP),
             // Goblin(),
             // Goblin(),
         )

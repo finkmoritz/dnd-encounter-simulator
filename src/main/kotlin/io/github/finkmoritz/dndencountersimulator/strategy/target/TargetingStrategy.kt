@@ -2,25 +2,39 @@ package io.github.finkmoritz.dndencountersimulator.strategy.target
 
 import io.github.finkmoritz.dndencountersimulator.combatant.Combatant
 
-enum class TargetingStrategy {
+interface TargetingStrategy {
 
+    fun chooseTarget(targets: List<Combatant>): Combatant
 
-    RANDOM {
-        override fun chooseTarget(targets: List<Combatant>): Combatant {
-            return targets.random()
+    companion object {
+        val RANDOM = object : TargetingStrategy {
+            override fun chooseTarget(targets: List<Combatant>): Combatant {
+                return targets.random()
+            }
         }
-    },
-    STRONGEST {
-        override fun chooseTarget(targets: List<Combatant>): Combatant {
-            return targets.maxBy { it.hp() }
-        }
-    },
-    WEAKEST {
-        override fun chooseTarget(targets: List<Combatant>): Combatant {
-            return targets.minBy { it.hp() }
-        }
-    };
 
+        val HIGHEST_HP = object : TargetingStrategy {
+            override fun chooseTarget(targets: List<Combatant>): Combatant {
+                return targets.maxByOrNull { it.hp() } ?: throw NoSuchElementException("No targets available")
+            }
+        }
 
-    abstract fun chooseTarget(targets: List<Combatant>): Combatant
+        val LOWEST_HP = object : TargetingStrategy {
+            override fun chooseTarget(targets: List<Combatant>): Combatant {
+                return targets.minByOrNull { it.hp() } ?: throw NoSuchElementException("No targets available")
+            }
+        }
+
+        val HIGHEST_AC = object : TargetingStrategy {
+            override fun chooseTarget(targets: List<Combatant>): Combatant {
+                return targets.maxByOrNull { it.ac() } ?: throw NoSuchElementException("No targets available")
+            }
+        }
+
+        val LOWEST_AC = object : TargetingStrategy {
+            override fun chooseTarget(targets: List<Combatant>): Combatant {
+                return targets.minByOrNull { it.ac() } ?: throw NoSuchElementException("No targets available")
+            }
+        }
+    }
 }
