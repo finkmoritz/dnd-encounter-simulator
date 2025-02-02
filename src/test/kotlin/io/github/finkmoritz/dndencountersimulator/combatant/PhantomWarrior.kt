@@ -1,18 +1,18 @@
-package io.github.finkmoritz.dndencountersimulator.combatant.impl
+package io.github.finkmoritz.dndencountersimulator.combatant
 
-import io.github.finkmoritz.dndencountersimulator.combatant.BaseCombatant
 import io.github.finkmoritz.dndencountersimulator.damage.DamageDice
 import io.github.finkmoritz.dndencountersimulator.damage.DamageType
 import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 
-class Bugbear(
-    name:String = "Bugbear",
-    maxHp:UInt = 27u,
-    ac:UInt = 16u,
-    initiativeBonus:Int = 2,
-    attackBonus:Int = 4,
-    damageDice: DamageDice = DamageDice.fromExpressions("2d6+2", DamageType.PIERCING),
-    hp:UInt = maxHp,
+class PhantomWarrior(
+    name: String = "Phantom Warrior",
+    maxHp: UInt = 45u,
+    ac: UInt = 16u,
+    initiativeBonus: Int = 0,
+    attackBonus: Int = 5,
+    damageDice: DamageDice = DamageDice.fromExpressions("1d8+3", DamageType.FORCE),
+    hp: UInt = maxHp,
+    multiAttack: UInt = 2u,
     targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
 ) : BaseCombatant(
     name,
@@ -22,5 +22,6 @@ class Bugbear(
     attackBonus,
     damageDice,
     hp = hp,
+    multiAttack = multiAttack,
     targetingStrategy = targetingStrategy,
 )

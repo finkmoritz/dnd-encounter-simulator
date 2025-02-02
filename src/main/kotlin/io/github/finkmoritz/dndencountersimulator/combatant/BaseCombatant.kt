@@ -14,6 +14,7 @@ open class BaseCombatant(
     private val attackBonus: Int,
     private val damageDice: DamageDice,
     private var hp: UInt = maxHp,
+    private val multiAttack: UInt = 1u,
     private val targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
     ) : Combatant {
 
@@ -39,6 +40,10 @@ open class BaseCombatant(
 
     override fun rollAttack(): UInt {
         return Dice(1u, 20u, attackBonus).roll()
+    }
+
+    override fun multiAttack(): UInt {
+        return multiAttack
     }
 
     override fun rollDamage(): Damage {

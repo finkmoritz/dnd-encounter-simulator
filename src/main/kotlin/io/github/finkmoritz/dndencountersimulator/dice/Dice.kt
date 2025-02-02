@@ -22,10 +22,12 @@ class Dice(
         fun D20() = Dice(1u, 20u)
 
         fun fromExpression(expression: String): Dice {
-            val (product, modifier) = expression.split("+").map { it.trim() }
+            val parts = expression.split("+", limit = 2).map { it.trim() }
+            val product = parts[0]
+            val modifier = (parts.getOrNull(1) ?: "0").toInt()
             val (multiplier, sides) = product.split("d").map { it.trim().toUInt() }
 
-            return Dice(multiplier, sides, modifier.toIntOrNull() ?: 0)
+            return Dice(multiplier, sides, modifier)
         }
     }
 }

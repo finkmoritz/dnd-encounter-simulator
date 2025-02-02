@@ -17,6 +17,8 @@ interface Combatant {
 
     fun rollAttack(): UInt
 
+    fun multiAttack(): UInt
+
     fun rollDamage(): Damage
 
     fun takeDamage(damage: Damage)

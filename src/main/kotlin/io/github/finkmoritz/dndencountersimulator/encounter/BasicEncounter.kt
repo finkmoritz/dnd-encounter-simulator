@@ -7,7 +7,7 @@ class BasicEncounter(
     opponents: List<Combatant>,
     surprised: List<Combatant> = emptyList(),
     private val verbose: Boolean,
-    ) : Encounter {
+) : Encounter {
 
     private val friendlyCombatants: MutableList<Combatant> = party.filter { it.isAlive() }.toMutableList()
     private val opposingCombatants: MutableList<Combatant> = opponents.filter { it.isAlive() }.toMutableList()
@@ -19,6 +19,7 @@ class BasicEncounter(
         printIfVerbose("Determined initiative order: ${combatants.map { it.name() }}")
 
         var initiativeIndex = 0
+        var multiAttackIndex = 1
 
         while (friendlyCombatants.any { it.isAlive() } && opposingCombatants.any { it.isAlive() }) {
 
@@ -44,6 +45,11 @@ class BasicEncounter(
                 printIfVerbose("${target.name()} has ${target.hp()} HP remaining")
 
                 if (target.isDead()) {
+                    combatants.indexOf(target).let {
+                        if (it < initiativeIndex) {
+                            initiativeIndex--
+                        }
+                    }
                     combatants.remove(target)
                     friendlyCombatants.remove(target)
                     opposingCombatants.remove(target)
@@ -51,7 +57,12 @@ class BasicEncounter(
                 }
             }
 
-            initiativeIndex = (initiativeIndex + 1) % combatants.size
+            if (multiAttackIndex < combatant.multiAttack().toInt()) {
+                multiAttackIndex++
+            } else {
+                multiAttackIndex = 1
+                initiativeIndex = (initiativeIndex + 1) % combatants.size
+            }
         }
     }
 

@@ -1,18 +1,18 @@
-package io.github.finkmoritz.dndencountersimulator.combatant.impl
+package io.github.finkmoritz.dndencountersimulator.combatant
 
-import io.github.finkmoritz.dndencountersimulator.combatant.BaseCombatant
 import io.github.finkmoritz.dndencountersimulator.damage.DamageDice
 import io.github.finkmoritz.dndencountersimulator.damage.DamageType
 import io.github.finkmoritz.dndencountersimulator.strategy.target.TargetingStrategy
 
-class Goblin(
-    name: String = "Goblin",
-    maxHp: UInt = 7u,
-    ac: UInt = 15u,
+class Wolf(
+    name: String = "Wolf",
+    maxHp: UInt = 11u,
+    ac: UInt = 13u,
     initiativeBonus: Int = 2,
     attackBonus: Int = 4,
-    damageDice: DamageDice = DamageDice.fromExpressions("1d6+2", DamageType.SLASHING),
+    damageDice: DamageDice = DamageDice.fromExpressions("2d4+2", DamageType.PIERCING),
     hp: UInt = maxHp,
+    multiAttack: UInt = 1u,
     targetingStrategy: TargetingStrategy = TargetingStrategy.RANDOM,
 ) : BaseCombatant(
     name,
@@ -22,5 +22,6 @@ class Goblin(
     attackBonus,
     damageDice,
     hp = hp,
+    multiAttack = multiAttack,
     targetingStrategy = targetingStrategy,
-)
+    )
